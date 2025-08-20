@@ -11,26 +11,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.24.0'
-        channel: 'stable'
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
 
-    - name: Analyze project source
-      run: flutter analyze
+      - name: Disable Flutter analytics
+        run: flutter config --no-analytics
 
-    - name: Run tests
-      run: flutter test
+      - name: Analyze project source
+        run: flutter analyze
 
-    - name: Build APK
-      run: flutter build apk
+      - name: Run tests
+        run: flutter test
 
-    - name: Build Web
-      run: flutter build web
+      - name: Build APK
+        run: flutter build apk
 
-    - name: Build iOS (macOS only)
-      if: runner.os == 'macOS'
-      run: flutter build ios --no-codesign
+      - name: Build Web
+        run: flutter build web
+
+      - name: Build iOS (macOS only)
+        if: runner.os == 'macOS'
+        run: flutter build ios --no-codesign
