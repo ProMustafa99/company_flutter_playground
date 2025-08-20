@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      FLUTTER_SUPPRESS_ANALYTICS: true
+      DART_SUPPRESS_ANALYTICS: true
 
     steps:
       - uses: actions/checkout@v4
@@ -37,3 +40,14 @@ jobs:
       - name: Build iOS (macOS only)
         if: runner.os == 'macOS'
         run: flutter build ios --no-codesign
+
+      - name: Build APK
+        run: flutter build apk
+
+      - name: Build Web
+        run: flutter build web
+
+      - name: Build iOS (macOS only)
+        if: runner.os == 'macOS'
+        run: flutter build ios --no-codesign
+
