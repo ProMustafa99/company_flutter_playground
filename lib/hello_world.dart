@@ -7,7 +7,7 @@ class HelloWorld extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-          child: const Text('Hello World Mustafassdasssddsadss'),
+          child: Text('Hello World Mustafassdasssddsadss'),
       ),
     );
   }
