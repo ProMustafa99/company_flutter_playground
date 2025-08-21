@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../Local_storage/shared_preferences.dart';
+import 'package:flutter_training/Local_storage/shared_preferences.dart';
 
 class Todo {
   String title;
