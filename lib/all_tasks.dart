@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/model/todo.model.dart';
 import 'package:provider/provider.dart';
+ 
 
 class AllTasks extends StatefulWidget {
   const AllTasks({super.key});
@@ -11,7 +12,6 @@ class AllTasks extends StatefulWidget {
 
 class _AllTasksState extends State<AllTasks> {
   final TextEditingController textController = TextEditingController();
-  
 
   @override
   void dispose() {
@@ -34,8 +34,6 @@ class _AllTasksState extends State<AllTasks> {
 
   @override
   Widget build(BuildContext context) {
-    // final todoList = context.read<TodoList>();
-
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -92,6 +90,7 @@ class _AllTasksState extends State<AllTasks> {
           ],
         ),
       ),
+  
     );
   }
 }
