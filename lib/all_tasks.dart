@@ -11,6 +11,7 @@ class AllTasks extends StatefulWidget {
 
 class _AllTasksState extends State<AllTasks> {
   final TextEditingController textController = TextEditingController();
+  
 
   @override
   void dispose() {
@@ -18,9 +19,22 @@ class _AllTasksState extends State<AllTasks> {
     super.dispose();
   }
 
+  void _addTodo() {
+    final todoList = context.read<TodoList>();
+    todoList.addTodo(textController.text);
+    textController.clear();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final todoList = context.read<TodoList>();
+    todoList.loadTodos();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final todoList = context.read<TodoList>();
+    // final todoList = context.read<TodoList>();
 
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +49,10 @@ class _AllTasksState extends State<AllTasks> {
               ),
             ),
             const SizedBox(height: 10),
-            const Text('ToDo List', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
+            const Text(
+              'ToDo List',
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
           ],
         ),
         backgroundColor: Colors.white,
@@ -54,8 +71,7 @@ class _AllTasksState extends State<AllTasks> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  todoList.addTodo(textController.text);
-                  textController.clear();
+                  _addTodo();
                 },
                 child: const Text('Add Todo'),
               ),
@@ -84,21 +100,31 @@ Widget _cardTask(BuildContext context, Todo todo, int index) {
   return Card(
     child: Row(
       children: [
-        Checkbox(value: todo.isDone, onChanged: (value) {
-          context.read<TodoList>().toggleTodo(todo);
-        }),
+        Checkbox(
+          value: todo.isDone,
+          onChanged: (value) {
+            context.read<TodoList>().toggleTodo(todo);
+          },
+        ),
 
         Expanded(
-          child: ListTile(title: Text(todo.title, style: todo.isDone ? const TextStyle(decoration: TextDecoration.lineThrough) : null)),
+          child: ListTile(
+            title: Text(
+              todo.title,
+              style: todo.isDone
+                  ? const TextStyle(decoration: TextDecoration.lineThrough)
+                  : null,
+            ),
+          ),
         ),
         IconButton(
           onPressed: () {
             debugPrint('delete button pressed ${todo.title}');
             context.read<TodoList>().removeTodo(todo);
-          }, 
-          icon: const Icon(Icons.delete)
+          },
+          icon: const Icon(Icons.delete),
         ),
       ],
-    )
+    ),
   );
 }
